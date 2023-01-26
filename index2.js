@@ -18,7 +18,18 @@ function refreshGame() {
   controls();
   boundryCheck();
   createPc();
-  createNpc();
+  npc();
+  getDistance();
+  console.log(getDistance(pcX, pcY, npcX, npcY));
+  if (getDistance(pcX, pcY, npcX, npcY) < pcRadius + npcRadius) {
+  }
+}
+
+function getDistance(x1, y1, x2, y2) {
+  let xDistance = x2 - x1;
+  let yDistance = y2 - y1;
+
+  return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 }
 
 function boundryCheck() {
@@ -63,12 +74,13 @@ function createPc() {
   ctx.fill();
 }
 
-function createNpc() {
+function npc() {
   ctx.fillStyle = "red";
   ctx.beginPath();
   ctx.arc(npcX, npcY, npcRadius, 0, Math.PI * 2);
   ctx.fill();
 }
+
 
 function resetScreen() {
   ctx.fillStyle = "black";
