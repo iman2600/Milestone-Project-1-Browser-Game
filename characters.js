@@ -1,10 +1,10 @@
-function createPc() {
+/*function createPc() {
   ctx.fillStyle = "green";
   ctx.beginPath();
   ctx.arc(pcX, pcY, pcRadius, 0, Math.PI * 2);
   ctx.fill();
 }
-
+*/
 function Circle(x, y, radius, color) {
   this.x = x;
   this.y = y;
@@ -24,8 +24,12 @@ function Circle(x, y, radius, color) {
   };
 }
 
-//add npc
+//add npc1
+let pc;
 let npc1;
+let pellet;
 function init() {
-  npc1 = new Circle(20, 20, 20, "red");
+  npc1 = new Circle(npcX, npcY, 25, "red");
+  pc = new Circle(pcX, pcY, 25, "green");
+  pellet = new Circle(pelletX, pelletY, 10, "white");
 }
