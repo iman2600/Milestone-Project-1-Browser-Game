@@ -1,27 +1,58 @@
-let pcX = 100;
-let pcY = 100;
-let pcRadius = 25;
-let npcX = 100;
-let npcY = 100;
-let npcRadius = 25;
+//canvas variables
 const canvas = document.getElementById("gameArea");
 const ctx = canvas.getContext("2d");
+//tilegrid variables
+let tileCount = 50;
+let tileSize = canvas.width / tileCount - 2;
+//pc variables
+let pcX = 10;
+let pcY = 10;
+let pcRadius = 25;
+//npc variables
+let npcX;
+let npcY;
+let npcRadius = 25;
 
+//movement variables
 let moveDown = false;
 let moveUp = false;
 let moveLeft = false;
 let moveRight = false;
 let speed = 7.5;
 
+//point pellet variables
+let pointX = 5;
+let pointY = 5;
+
 function refreshGame() {
   resetScreen();
+  pointPellet();
+  getPoint();
   controls();
   boundryCheck();
   createPc();
-  npc();
+  Circle();
   getDistance();
-  console.log(getDistance(pcX, pcY, npcX, npcY));
+  init();
+npc1.update()
+  //making sure it works
+  if (getDistance(pcX, pcY, pointX, pointY) < pcRadius) {
+    console.log("contact");
+  }
+
   if (getDistance(pcX, pcY, npcX, npcY) < pcRadius + npcRadius) {
+  }
+}
+
+function pointPellet() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(pointX * tileCount, pointY * tileCount, tileSize, tileSize);
+}
+//fix this
+function getPoint() {
+  if (pcX == pointX) {
+    pointX = Math.floor(Math.random() * tileCount);
+    pointY = Math.floor(Math.random() * tileCount);
   }
 }
 
@@ -51,7 +82,7 @@ function boundryCheck() {
     pcX = canvas.width - pcRadius - 5;
   }
 }
-
+/*
 function controls() {
   if (moveDown) {
     pcY = pcY + speed;
@@ -66,6 +97,7 @@ function controls() {
     pcX = pcX + speed;
   }
 }
+*/
 
 function createPc() {
   ctx.fillStyle = "green";
@@ -74,13 +106,30 @@ function createPc() {
   ctx.fill();
 }
 
-function npc() {
-  ctx.fillStyle = "red";
-  ctx.beginPath();
-  ctx.arc(npcX, npcY, npcRadius, 0, Math.PI * 2);
-  ctx.fill();
+function Circle(x, y, radius, color) {
+  this.x = x;
+  this.y = y;
+  this.radius = radius;
+  this.color = color;
+
+  this.update = function () {
+    this.draw();
+  };
+
+  this.draw = function () {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.closePath();
+  };
 }
 
+//add npc
+let npc1
+function init(){
+    npc1 = new Circle(20, 20, 20, "red");
+}
 
 function resetScreen() {
   ctx.fillStyle = "black";
