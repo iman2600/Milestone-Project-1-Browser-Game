@@ -15,7 +15,7 @@ let npcSpeed = 3;
 //score pellet
 let pelletX = 375;
 let pelletY = 375;
-let score = 10;
+let score = 0;
 
 //movement variables
 let moveDown = false;
